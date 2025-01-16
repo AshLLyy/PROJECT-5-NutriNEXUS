@@ -1,6 +1,7 @@
 pip==24.2
 ultralytics
 streamlit
+torch
 opencv-python-headless
 Pillow
 requests
