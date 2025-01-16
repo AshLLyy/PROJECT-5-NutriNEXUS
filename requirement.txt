@@ -1,4 +1,4 @@
 pip==24.2
-tensorflow
+tensorflow-cpu==2.14.0
 ultralytics
 numpy
