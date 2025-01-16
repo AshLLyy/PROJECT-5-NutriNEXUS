@@ -1,4 +1,4 @@
 pip==24.2
-ultralytics
-streamlit
-opencv-python-headless
+ultralytics==8.0.0  # Pin the compatible version (update as needed)
+streamlit==1.25.0   # Use a version known to work with your setup
+opencv-python-headless==4.8.0.74
