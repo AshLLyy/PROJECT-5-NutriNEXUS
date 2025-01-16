@@ -1,4 +1,4 @@
 pip==24.2
-tensorflow-cpu
+pyTorch
 ultralytics
 numpy
