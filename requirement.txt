@@ -1,2 +1,8 @@
-pip==24.2
-ultralytics
+streamlit==1.25.0
+tensorflow==2.14.0
+ultralytics==8.0.3
+numpy==1.23.5
+requests==2.31.0
+opencv-python==4.8.0.76
+Pillow==9.4.0
+torch==2.0.1
