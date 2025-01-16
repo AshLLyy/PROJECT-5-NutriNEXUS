@@ -14,7 +14,7 @@ from PIL import Image, ImageOps
 
 # %%
 # API configuration
-BASE_API_URL = "http://127.0.0.1:7860"
+BASE_API_URL = "https://6e49-2001-d08-1381-def6-79cd-80fa-893a-2541.ngrok-free.app"
 FLOW_ID = "48955cd2-1abb-4841-81f9-48fb2a1a8fbd"
 ENDPOINT = "dietry"
 
