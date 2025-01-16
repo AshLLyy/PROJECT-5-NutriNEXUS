@@ -1,2 +1,2 @@
 pip==24.2
-ultralytics
+ultralytics==8.0.3
