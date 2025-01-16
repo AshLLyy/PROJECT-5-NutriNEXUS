@@ -1,3 +1,7 @@
-ultralytics
-YOLO
-streamlit
+pip==24.2
+ultralytics==8.0.3
+streamlit==1.25.0
+torch==2.0.1
+opencv-python==4.8.0.76
+Pillow==9.4.0
+requests==2.31.0
