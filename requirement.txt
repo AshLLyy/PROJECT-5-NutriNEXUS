@@ -1,2 +1,2 @@
-pip==24.2
-git+https://github.com/ultralytics/ultralytics.git 
+ultralytics
+streamlit
