@@ -38,7 +38,7 @@ def extract_message(response: dict) -> str:
         logging.error("No valid message found in response.")
         return "No valid message found in response."
 
-model = YOLO(r'best (4).pt')
+model = YOLO(r'best_yolo11n_model.pt')
 
 def classify_with_yolo(image):
     """Classify the input image using the YOLO model."""
@@ -63,8 +63,9 @@ def main():
     image = Image.open(IMAGE_PATH)
     st.image(image, use_column_width=True)
 
-    st.title("👩🏻‍🎓 NutriNEXUS: Your Personalized Nutrition Companion")
+    st.title("👩🏻‍🎓 NutriNEXUS: Your Personalized Nutrition Companion.")
     st.write("⬅️ Please capture an image first before you start asking a question.")
+    st.write("NOTE: IF USING PHONE PLEASE CLICK THE ARROW BUTTON ABOVE.")
     st.write("⬇️ You may ask any question about a healthy diet below.")
 
 # Sidebar setup
