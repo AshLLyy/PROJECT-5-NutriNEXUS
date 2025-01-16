@@ -38,7 +38,7 @@ def extract_message(response: dict) -> str:
         logging.error("No valid message found in response.")
         return "No valid message found in response."
 
-model = YOLO(r'best_yolo11n_model.pt')
+model = YOLO(r'best_yolo11n.pt')
 
 def classify_with_yolo(image):
     """Classify the input image using the YOLO model."""
