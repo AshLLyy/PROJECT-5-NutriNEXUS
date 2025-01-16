@@ -1,15 +1,12 @@
 #%%
 import streamlit as st
-import numpy as np
 import requests
-import cv2
 import os
 import json
 import logging
-from typing import Optional
+
 from ultralytics import YOLO
-from ultralytics import YOLOWorld
-from PIL import Image, ImageOps
+from PIL import Image
 
 # %%
 # API configuration
