@@ -45,11 +45,13 @@ def run_flow(message: str, endpoint: str, output_type: str = "chat", input_type:
         "output_type": output_type,
         "input_type": input_type,
     }
+    
     if tweaks:
         payload["tweaks"] = tweaks
-
-    headers = {"x-api-key": api_key} if api_key else None
+    if api_key:
+        headers = {"x-api-key": api_key}
     response = requests.post(api_url, json=payload, headers=headers)
+    return response.json()
 
     # Log the response for debugging
     logging.info(f"Response Status Code: {response.status_code}")
