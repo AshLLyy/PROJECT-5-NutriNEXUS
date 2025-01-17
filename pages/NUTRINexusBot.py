@@ -4,6 +4,7 @@ import requests
 import os
 import json
 import logging
+import requests
 
 from typing import Optional
 from ultralytics import YOLO
@@ -54,7 +55,6 @@ def run_flow(message: str,
         payload["tweaks"] = tweaks
     headers = {"x-api-key": api_key} if api_key else None
     response = requests.post(api_url, json=payload, headers=headers)
-    return response.json()
 
     # Log the response for debugging
     logging.info(f"Response Status Code: {response.status_code}")
