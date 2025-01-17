@@ -156,8 +156,8 @@ def main():
                 assistant_response = extract_message(run_flow(query, endpoint=ENDPOINT))
                 message_placeholder.write(assistant_response)
               
-      elif query := picture:
-          st.session_state.messages.append(
+    elif query := picture:
+        st.session_state.messages.append(
             {"role": "user", "content": query, "avatar": "👩🏻"}
         )
         with st.chat_message("user", avatar="👩🏻"):
