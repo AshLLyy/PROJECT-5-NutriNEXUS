@@ -160,10 +160,10 @@ def main():
         with st.chat_message("user", avatar="👩🏻"):
             st.write(query)
 
-        combined_query = {
-            "text_query": query,
-            "image": encoded_image if picture else None,
-        }
+            combined_query = {
+                "text_query": query,
+                "image": encoded_image if picture else None,
+            }
 
         # Get assistant response
         with st.chat_message("assistant", avatar="👩🏻‍🎓"):
@@ -171,7 +171,20 @@ def main():
             with st.spinner("Thinking..."):
                 assistant_response = extract_message(run_flow(query, endpoint=ENDPOINT))
                 message_placeholder.write(assistant_response)
-              
+
+    elif query := picture:
+        st.session_state.messages.append(
+            {"role": "user", "content": query, "avatar": "👩🏻"}
+        )
+        with st.chat_message("user", avatar="👩🏻"):
+            st.write(query)
+
+
+        # Get assistant response
+        with st.chat_message("assistant", avatar="👩🏻‍🎓"):
+            message_placeholder = st.empty()
+            with st.spinner("Thinking..."):
+                assistant_response = extract_message(run_flow(q    
 
 if __name__ == "__main__":
     main()
