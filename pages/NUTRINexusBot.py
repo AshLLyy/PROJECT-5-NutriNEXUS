@@ -151,7 +151,7 @@ def main():
         )
         with st.chat_message("user", avatar="👩🏻"):
             st.write(query)
-
+    
         # Get assistant response
         with st.chat_message("assistant", avatar="👩🏻‍🎓"):
             message_placeholder = st.empty()
@@ -159,20 +159,32 @@ def main():
                 assistant_response = extract_message(run_flow(query, endpoint=ENDPOINT))
                 message_placeholder.write(assistant_response)
 
-    elif query := picture:
+    elif picture:
+    # Handle image input only
         st.session_state.messages.append(
-            {"role": "user", "content": query, "avatar": "👩🏻"}
+            {"role": "user", "content": "Uploaded an image.", "avatar": "👩🏻"}
         )
         with st.chat_message("user", avatar="👩🏻"):
-            st.write(query)
+            st.image(picture, caption="Uploaded Image", use_column_width=True)
 
+        # Classify image using YOLO
+        image = Image.open(picture).convert("RGB")
+        with st.spinner("Classifying the image..."):
+            predicted_class, confidence = classify_with_yolo(image)
 
-        # Get assistant response
+        # Display classification result
+        if predicted_class:
+            st.success(f"**Predicted Class**: {predicted_class}")
+            st.write(f"**Confidence**: {confidence:.2f}")
+
+        # Optionally send image for assistant response
+        combined_query = {"text_query": "Analyze this image", "image": picture}
         with st.chat_message("assistant", avatar="👩🏻‍🎓"):
             message_placeholder = st.empty()
             with st.spinner("Thinking..."):
-                assistant_response = extract_message(run_flow(query, endpoint=ENDPOINT))
-                message_placeholder.write(assistant_response) 
+                response = run_flow(query="Analyze this image", endpoint=ENDPOINT, tweaks=TWEAKS)
+                assistant_response = extract_message(response)
+                message_placeholder.write(assistant_response)
 
 if __name__ == "__main__":
     main()
