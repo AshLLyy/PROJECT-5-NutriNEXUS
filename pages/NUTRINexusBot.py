@@ -184,7 +184,8 @@ def main():
         with st.chat_message("assistant", avatar="👩🏻‍🎓"):
             message_placeholder = st.empty()
             with st.spinner("Thinking..."):
-                assistant_response = extract_message(run_flow(q    
+                assistant_response = extract_message(run_flow(query, endpoint=ENDPOINT))
+                message_placeholder.write(assistant_response) 
 
 if __name__ == "__main__":
     main()
