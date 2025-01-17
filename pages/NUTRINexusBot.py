@@ -120,6 +120,8 @@ def main():
         # Initialize variables to avoid UnboundLocalError
         predicted_class, confidence = None, None
 
+        picture = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
+
         if picture is not None:
             # Convert the captured image
             image = Image.open(picture).convert("RGB")
