@@ -78,7 +78,7 @@ def extract_message(response: dict) -> str:
 
 def encode_image_to_base64(image: Image.Image) -> str:
     """Convert a PIL image to a Base64-encoded string."""
-    buffered = st.BytesIO()
+    buffered = BytesIO()
     image.save(buffered, format="JPEG")
     return base64.b64encode(buffered.getvalue()).decode("utf-8")
 
