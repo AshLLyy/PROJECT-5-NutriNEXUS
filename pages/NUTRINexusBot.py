@@ -27,8 +27,22 @@ def run_flow(message: str, endpoint: str, output_type: str = "chat", input_type:
         "output_type": output_type,
         "input_type": input_type,
     }
-    response = requests.post(api_url, json=payload)
-    return response.json()
+    if tweaks:
+        payload["tweaks"] = tweaks
+
+    headers = {"x-api-key": api_key} if api_key else None
+    response = requests.post(api_url, json=payload, headers=headers)
+
+    # Log the response for debugging
+    logging.info(f"Response Status Code: {response.status_code}")
+    logging.info(f"Response Text: {response.text}")
+
+    try:
+        return response.json()
+    except json.JSONDecodeError:
+        logging.error("Failed to decode JSON from the server response.")
+        return {}
+
 
 def extract_message(response: dict) -> str:
     """Extract the assistant's response message from the API."""
@@ -91,6 +105,8 @@ def main():
     else:
         st.warning("No prediction available or no image provided.")
 
+    TWEAKS["TextInput-kTnTc"]["input_value"] = json_full
+    
     # Initialize session state for chat history
     if "messages" not in st.session_state:
         st.session_state.messages = []
