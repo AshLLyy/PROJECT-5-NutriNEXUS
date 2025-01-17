@@ -5,6 +5,7 @@ import os
 import json
 import logging
 
+from typing import Optional
 from ultralytics import YOLO
 from PIL import Image
 
@@ -14,12 +15,33 @@ BASE_API_URL = "https://06cf-175-139-159-165.ngrok-free.app"
 FLOW_ID = "48955cd2-1abb-4841-81f9-48fb2a1a8fbd"
 ENDPOINT = "dietry"
 
+TWEAKS = {
+  "OpenAIEmbeddings-BZBHp": {},
+  "ChatInput-fl9QI": {},
+  "OpenAIModel-fjrPg": {},
+  "Chroma-6Fphf": {},
+  "ParseData-7IRv9": {},
+  "Prompt-wPRmN": {},
+  "ChatOutput-JF5xQ": {},
+  "TextInput-kTnTc": {}
+}
+
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
 
-def run_flow(message: str, endpoint: str, output_type: str = "chat", input_type: str = "chat") -> dict:
+def run_flow(message: str,
+  endpoint: str,
+  output_type: str = "chat",
+  input_type: str = "chat",
+  tweaks: Optional[dict] = None,
+  api_key: Optional[str] = None) -> dict:
     """
     Run a flow with a given message and optional tweaks.
+
+    :param message: The message to send to the flow
+    :param endpoint: The ID or the endpoint name of the flow
+    :param tweaks: Optional tweaks to customize the flow
+    :return: The JSON response from the flow
     """
     api_url = f"{BASE_API_URL}/api/v1/run/{endpoint}"
     payload = {
@@ -27,8 +49,23 @@ def run_flow(message: str, endpoint: str, output_type: str = "chat", input_type:
         "output_type": output_type,
         "input_type": input_type,
     }
-    response = requests.post(api_url, json=payload)
+    
+    if tweaks:
+        payload["tweaks"] = tweaks
+    headers = {"x-api-key": api_key} if api_key else None
+    response = requests.post(api_url, json=payload, headers=headers)
     return response.json()
+
+    # Log the response for debugging
+    logging.info(f"Response Status Code: {response.status_code}")
+    logging.info(f"Response Text: {response.text}")
+
+    try:
+        return response.json()
+    except json.JSONDecodeError:
+        logging.error("Failed to decode JSON from the server response.")
+        return {}
+
 
 def extract_message(response: dict) -> str:
     """Extract the assistant's response message from the API."""
@@ -71,7 +108,8 @@ def main():
     with st.sidebar:
         enable = st.checkbox("Enable camera")
         picture = st.camera_input("Take a picture", disabled=not enable)
-
+        json_full = []
+      
         # Initialize variables to avoid UnboundLocalError
         predicted_class, confidence = None, None
 
@@ -91,6 +129,8 @@ def main():
     else:
         st.warning("No prediction available or no image provided.")
 
+    TWEAKS["TextInput-kTnTc"]["input_value"] = json_full
+    
     # Initialize session state for chat history
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -115,7 +155,20 @@ def main():
             with st.spinner("Thinking..."):
                 assistant_response = extract_message(run_flow(query, endpoint=ENDPOINT))
                 message_placeholder.write(assistant_response)
+              
+      elif query := picture:
+          st.session_state.messages.append(
+            {"role": "user", "content": query, "avatar": "👩🏻"}
+        )
+        with st.chat_message("user", avatar="👩🏻"):
+            st.write(query)
 
+        # Get assistant response
+        with st.chat_message("assistant", avatar="👩🏻‍🎓"):
+            message_placeholder = st.empty()
+            with st.spinner("Thinking..."):
+                assistant_response = extract_message(run_flow(query, endpoint=ENDPOINT))
+                message_placeholder.write(assistant_response)
         # Log assistant response
         st.session_state.messages.append(
             {"role": "assistant", "content": assistant_response, "avatar": "👩🏻‍🎓"}
