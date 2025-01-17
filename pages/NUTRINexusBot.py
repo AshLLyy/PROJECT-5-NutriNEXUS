@@ -17,7 +17,8 @@ ENDPOINT = "dietry"
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
 
-def run_flow(message: str, endpoint: str, output_type: str = "chat", input_type: str = "chat") -> dict:
+def run_flow(message: str, endpoint: str, output_type: str = "chat", input_type: str = "chat", tweaks: Optional[dict] = None,
+             api_key: Optional[str] = None) -> dict:
     """
     Run a flow with a given message and optional tweaks.
     """
