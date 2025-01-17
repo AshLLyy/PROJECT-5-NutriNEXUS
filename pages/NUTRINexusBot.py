@@ -157,33 +157,6 @@ def main():
                 assistant_response = extract_message(run_flow(query, endpoint=ENDPOINT))
                 message_placeholder.write(assistant_response)
 
-    elif picture:
-    # Handle image input only
-        st.session_state.messages.append(
-            {"role": "user", "content": "Uploaded an image.", "avatar": "👩🏻"}
-        )
-        with st.chat_message("user", avatar="👩🏻"):
-            st.image(picture, caption="Uploaded Image", use_column_width=True)
-
-        # Classify image using YOLO
-        image = Image.open(picture).convert("RGB")
-        with st.spinner("Classifying the image..."):
-            predicted_class, confidence = classify_with_yolo(image)
-
-        # Display classification result
-        if predicted_class:
-            st.success(f"**Predicted Class**: {predicted_class}")
-            st.write(f"**Confidence**: {confidence:.2f}")
-
-        # Optionally send image for assistant response
-        combined_query = {"text_query": "Analyze this image", "image": picture}
-        with st.chat_message("assistant", avatar="👩🏻‍🎓"):
-            message_placeholder = st.empty()
-            with st.spinner("Thinking..."):
-                response = run_flow(picture, endpoint=ENDPOINT, tweaks=TWEAKS)
-                assistant_response = extract_message(response)
-                message_placeholder.write(assistant_response)
-
 if __name__ == "__main__":
     main()
 # %%
