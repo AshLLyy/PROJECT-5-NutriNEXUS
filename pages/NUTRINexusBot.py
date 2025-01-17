@@ -4,7 +4,6 @@ import requests
 import os
 import json
 import logging
-<<<<<<< HEAD
 import requests
 
 
