@@ -52,8 +52,7 @@ def run_flow(message: str,
     
     if tweaks:
         payload["tweaks"] = tweaks
-    if api_key:
-        headers = {"x-api-key": api_key}
+    headers = {"x-api-key": api_key} if api_key else None
     response = requests.post(api_url, json=payload, headers=headers)
     return response.json()
 
