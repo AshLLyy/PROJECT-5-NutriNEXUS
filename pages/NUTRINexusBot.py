@@ -1,6 +1,7 @@
 #%%
 import streamlit as st
 import requests
+import base64
 import os
 import json
 import logging
@@ -74,6 +75,12 @@ def extract_message(response: dict) -> str:
         logging.error("No valid message found in response.")
         return "No valid message found in response."
 
+def encode_image_to_base64(image: Image.Image) -> str:
+    """Convert a PIL image to a Base64-encoded string."""
+    buffered = st.BytesIO()
+    image.save(buffered, format="JPEG")
+    return base64.b64encode(buffered.getvalue()).decode("utf-8")
+
 model = YOLO(r'best (4).pt')
 
 def classify_with_yolo(image):
@@ -117,6 +124,8 @@ def main():
             image = Image.open(picture).convert("RGB")
             st.image(image, caption="Uploaded Image", use_column_width=True)
 
+            encoded_image = encode_image_to_base64(image)
+
             # Perform YOLO inference
             with st.spinner("Classifying..."):
                 predicted_class, confidence = classify_with_yolo(image)
@@ -147,6 +156,11 @@ def main():
         )
         with st.chat_message("user", avatar="👩🏻"):
             st.write(query)
+
+        combined_query = {
+            "text_query": query,
+            "image": encoded_image if picture else None,
+        }
 
         # Get assistant response
         with st.chat_message("assistant", avatar="👩🏻‍🎓"):
