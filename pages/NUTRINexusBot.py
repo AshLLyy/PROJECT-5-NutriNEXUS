@@ -23,7 +23,6 @@ TWEAKS = {
   "ParseData-7IRv9": {},
   "Prompt-wPRmN": {},
   "ChatOutput-JF5xQ": {},
-  "OllamaModel-OoTqx": {},
   "TextInput-kTnTc": {}
 }
 
