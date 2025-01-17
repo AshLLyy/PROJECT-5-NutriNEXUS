@@ -121,12 +121,12 @@ def main():
             with st.spinner("Classifying..."):
                 predicted_class, confidence = classify_with_yolo(image)
 
-    # Display results
-    if predicted_class:
-        st.success(f"**Predicted Class**: {predicted_class}")
-        st.write(f"**Confidence**: {confidence:.2f}")
-    else:
-        st.warning("No prediction available or no image provided.")
+            # Display results
+            if predicted_class:
+                st.success(f"**Predicted Class**: {predicted_class}")
+                st.write(f"**Confidence**: {confidence:.2f}")
+            else:
+                st.warning("No prediction available or no image provided.")
 
     TWEAKS["TextInput-kTnTc"]["input_value"] = json_full
     
@@ -155,23 +155,6 @@ def main():
                 assistant_response = extract_message(run_flow(query, endpoint=ENDPOINT))
                 message_placeholder.write(assistant_response)
               
-    elif query := picture:
-        st.session_state.messages.append(
-            {"role": "user", "content": query, "avatar": "👩🏻"}
-        )
-        with st.chat_message("user", avatar="👩🏻"):
-            st.write(query)
-
-        # Get assistant response
-        with st.chat_message("assistant", avatar="👩🏻‍🎓"):
-            message_placeholder = st.empty()
-            with st.spinner("Thinking..."):
-                assistant_response = extract_message(run_flow(query, endpoint=ENDPOINT))
-                message_placeholder.write(assistant_response)
-        # Log assistant response
-        st.session_state.messages.append(
-            {"role": "assistant", "content": assistant_response, "avatar": "👩🏻‍🎓"}
-        )
 
 if __name__ == "__main__":
     main()
