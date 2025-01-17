@@ -21,6 +21,11 @@ def run_flow(message: str, endpoint: str, output_type: str = "chat", input_type:
              api_key: Optional[str] = None) -> dict:
     """
     Run a flow with a given message and optional tweaks.
+    
+    :param message: The message to send to the flow
+    :param endpoint: The ID or the endpoint name of the flow
+    :param tweaks: Optional tweaks to customize the flow
+    :return: The JSON response from the flow
     """
     api_url = f"{BASE_API_URL}/api/v1/run/{endpoint}"
     payload = {
@@ -86,7 +91,8 @@ def main():
     with st.sidebar:
         enable = st.checkbox("Enable camera")
         picture = st.camera_input("Take a picture", disabled=not enable)
-
+        json_full = []
+      
         # Initialize variables to avoid UnboundLocalError
         predicted_class, confidence = None, None
 
