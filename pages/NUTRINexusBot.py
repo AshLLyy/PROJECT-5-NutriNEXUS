@@ -5,6 +5,7 @@ import os
 import json
 import logging
 
+from typing import Optional
 from ultralytics import YOLO
 from PIL import Image
 
