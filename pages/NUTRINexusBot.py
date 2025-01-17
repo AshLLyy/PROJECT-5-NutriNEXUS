@@ -15,6 +15,18 @@ BASE_API_URL = "https://06cf-175-139-159-165.ngrok-free.app"
 FLOW_ID = "48955cd2-1abb-4841-81f9-48fb2a1a8fbd"
 ENDPOINT = "dietry"
 
+TWEAKS = {
+  "OpenAIEmbeddings-BZBHp": {},
+  "ChatInput-fl9QI": {},
+  "OpenAIModel-fjrPg": {},
+  "Chroma-6Fphf": {},
+  "ParseData-7IRv9": {},
+  "Prompt-wPRmN": {},
+  "ChatOutput-JF5xQ": {},
+  "OllamaModel-OoTqx": {},
+  "TextInput-kTnTc": {}
+}
+
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
 
