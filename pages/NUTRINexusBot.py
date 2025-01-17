@@ -6,6 +6,7 @@ import os
 import json
 import logging
 
+from io import BytesIO
 from typing import Optional
 from ultralytics import YOLO
 from PIL import Image
