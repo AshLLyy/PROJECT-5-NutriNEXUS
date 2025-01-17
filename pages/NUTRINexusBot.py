@@ -4,6 +4,7 @@ import requests
 import os
 import json
 import logging
+import request
 
 from typing import Optional
 from ultralytics import YOLO
