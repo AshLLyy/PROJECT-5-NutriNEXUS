@@ -180,7 +180,7 @@ def main():
         with st.chat_message("assistant", avatar="👩🏻‍🎓"):
             message_placeholder = st.empty()
             with st.spinner("Thinking..."):
-                response = run_flow(query="Analyze this image", endpoint=ENDPOINT, tweaks=TWEAKS)
+                response = run_flow(picture, endpoint=ENDPOINT, tweaks=TWEAKS)
                 assistant_response = extract_message(response)
                 message_placeholder.write(assistant_response)
 
