@@ -13,7 +13,7 @@ from PIL import Image
 
 # %%
 # API configuration
-BASE_API_URL = "https://06cf-175-139-159-165.ngrok-free.app"
+BASE_API_URL = "https://82b6-2001-d08-1b8c-e53b-ecbe-16d-836c-975f.ngrok-free.app"
 FLOW_ID = "48955cd2-1abb-4841-81f9-48fb2a1a8fbd"
 ENDPOINT = "dietry"
 
